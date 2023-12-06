@@ -10,14 +10,23 @@ def hookReceiver():
         print('------------------------------------')
         print(data)
         print('------------------------------------')
-        transfer = functions.transfer(data['amount'])
-        print(transfer)
-        return make_response(
+        amount = data['event']['invoice']['amount']
+        status = data['event']['invoice']['status']
+        if status == 'paid':
+            transfer = functions.transfer(amount)
+            print(transfer)
+            return make_response(
+                jsonify(
+                    mensagem='Ok',
+                    data=transfer
+                ), 200
+            )
+        else:
+            return make_response(
             jsonify(
-                mensagem='Ok',
-                data=transfer
+                mensagem='Não paga',
             ), 200
-        )
+            )
     else:
         return make_response(
             jsonify(
