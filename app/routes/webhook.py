@@ -14,8 +14,8 @@ def hookReceiver():
         print('------------------------------------')
         print(type(jsonData))
         print('------------------------------------')
-        amount = data['event']['log']['invoice']['amount']
-        status = data['event']['log']['invoice']['status']
+        amount = jsonData['event']['log']['invoice']['amount']
+        status = jsonData['event']['log']['invoice']['status']
         if status == 'paid':
             transfer = functions.transfer(amount)
             print(transfer)
