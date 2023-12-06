@@ -12,13 +12,13 @@ def hookReceiver():
         print('------------------------------------')
         print(jsonData)
         print('------------------------------------')
-        print(type(jsonData))
-        print('------------------------------------')
         amount = jsonData['event']['log']['invoice']['amount']
         status = jsonData['event']['log']['invoice']['status']
         if status == 'paid':
             transfer = functions.transfer(amount)
+            print('------------------------------------')
             print(transfer)
+            print('------------------------------------')
             return make_response(
                 jsonify(
                     mensagem='Ok',
