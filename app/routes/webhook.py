@@ -10,8 +10,8 @@ def hookReceiver():
         print('------------------------------------')
         print(data)
         print('------------------------------------')
-        amount = data['event']['invoice']['amount']
-        status = data['event']['invoice']['status']
+        amount = data['event']['log']['invoice']['amount']
+        status = data['event']['log']['invoice']['status']
         if status == 'paid':
             transfer = functions.transfer(amount)
             print(transfer)
