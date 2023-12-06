@@ -8,7 +8,7 @@ def hookReceiver():
     data = request.get_json()
     if data:
         print('------------------------------------')
-        print(data)
+        print(data['event'])
         print('------------------------------------')
         amount = data['event']['log']['invoice']['amount']
         status = data['event']['log']['invoice']['status']
