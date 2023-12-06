@@ -7,7 +7,7 @@ webhook_bp = Blueprint('webhook', __name__)
 def hookReceiver():
     data = request.get_json()
     if data:
-        transfer = functions.transfer(int(data['amount']))
+        transfer = functions.transfer(data['amount'])
         print(transfer)
         return make_response(
             jsonify(
