@@ -8,6 +8,7 @@ def hookReceiver():
     data = request.get_json()
     if data:
         transfer = functions.transfer(data['amount'])
+        print(transfer)
         return make_response(
             jsonify(
                 mensagem='Ok',
