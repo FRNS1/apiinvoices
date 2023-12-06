@@ -21,6 +21,7 @@ def create_app():
             'func': createInvoiceJob,
             'trigger': 'interval',
             'hours': 3,
+            'start_date': 'now',
         }
     ]
     
