@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, jsonify, make_response
 from .services.functionsFile import functions
 
 invoices_bp = Blueprint('invoices', __name__)
