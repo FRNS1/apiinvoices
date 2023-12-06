@@ -7,12 +7,12 @@ webhook_bp = Blueprint('webhook', __name__)
 @webhook_bp.route('/getinvoice', methods=['POST'])
 def hookReceiver():
     data = request.get_json()
-    data = json.dumps(data)
+    json = json.dumps(data)
     if data:
         print('------------------------------------')
-        print(data)
+        print(json)
         print('------------------------------------')
-        print(type(data))
+        print(type(json))
         print('------------------------------------')
         amount = data['event']['log']['invoice']['amount']
         status = data['event']['log']['invoice']['status']
