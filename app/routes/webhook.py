@@ -9,9 +9,6 @@ def hookReceiver():
     data = request.get_json()
     jsonData = json.loads(data)
     if data:
-        print('------------------------------------')
-        print(jsonData)
-        print('------------------------------------')
         amount = jsonData['event']['log']['invoice']['amount']
         status = jsonData['event']['log']['invoice']['status']
         if status == 'paid':
