@@ -1,11 +1,22 @@
-from flask import Blueprint, jsonify, make_response
+from flask import Blueprint, jsonify, make_response, request
+from .services.functionsFile import functions
 
 webhook_bp = Blueprint('webhook', __name__)
 
 @webhook_bp.route('/getinvoice', methods=['POST'])
 def hookReceiver():
-    return make_response(
-        jsonify(
-            mensagem='Ok'
-        ), 200
-    )
+    data = request.get_json()
+    if data:
+        transfer = functions.transfer(data['amount'])
+        return make_response(
+            jsonify(
+                mensagem='Ok',
+                data=transfer
+            ), 200
+        )
+    else:
+        return make_response(
+            jsonify(
+                mensagem='falha',
+            ), 200
+        )
