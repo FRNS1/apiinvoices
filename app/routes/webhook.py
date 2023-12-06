@@ -1,11 +1,13 @@
 from flask import Blueprint, jsonify, make_response, request
 from .services.functionsFile import functions
+import json
 
 webhook_bp = Blueprint('webhook', __name__)
 
 @webhook_bp.route('/getinvoice', methods=['POST'])
 def hookReceiver():
     data = request.get_json()
+    data = json.dumps(data)
     if data:
         print('------------------------------------')
         print(data['event'])
