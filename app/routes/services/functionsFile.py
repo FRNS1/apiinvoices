@@ -1,6 +1,7 @@
 import time
 from ellipticcurve.privateKey import PrivateKey
 from ellipticcurve.ecdsa import Ecdsa
+from app.config import privateKey as pkey
 import requests
 import json
 import random
@@ -12,16 +13,7 @@ class functions:
         accessId = "project/6227762025070592"
         bodyString = ""
         message = f"{accessId}:{accessTime}:{bodyString}"
-        privateKey = PrivateKey.fromPem("""
-        -----BEGIN EC PARAMETERS-----
-        BgUrgQQACg==
-        -----END EC PARAMETERS-----
-        -----BEGIN EC PRIVATE KEY-----
-        MHQCAQEEIIeTDvpQgt230UWY6dxB7JTLhQ91nI7/BL1CySP0ZKLWoAcGBSuBBAAK
-        oUQDQgAELpc8LwSIOOjzoL+iSO7ok8VB7mrsw5/B/XPsE2pxt2n3DgVFGitNHIu7
-        k9Ge1IzE/mY87uGWYRpd4P6YwfCvRw==
-        -----END EC PRIVATE KEY-----
-        """)
+        privateKey = PrivateKey.fromPem(pkey)
         signature = Ecdsa.sign(message, privateKey)
         accessSignature = signature.toBase64()
         request = requests.get(
@@ -47,16 +39,7 @@ class functions:
         }
         bodyStringJSON = json.dumps(bodyString)
         message = f"{accessId}:{accessTime}:{bodyStringJSON}"
-        privateKey = PrivateKey.fromPem("""
-        -----BEGIN EC PARAMETERS-----
-        BgUrgQQACg==
-        -----END EC PARAMETERS-----
-        -----BEGIN EC PRIVATE KEY-----
-        MHQCAQEEIIeTDvpQgt230UWY6dxB7JTLhQ91nI7/BL1CySP0ZKLWoAcGBSuBBAAK
-        oUQDQgAELpc8LwSIOOjzoL+iSO7ok8VB7mrsw5/B/XPsE2pxt2n3DgVFGitNHIu7
-        k9Ge1IzE/mY87uGWYRpd4P6YwfCvRw==
-        -----END EC PRIVATE KEY-----
-        """)
+        privateKey = PrivateKey.fromPem(pkey)
         signature = Ecdsa.sign(message, privateKey)
         accessSignature = signature.toBase64()
         request = requests.post(
@@ -76,16 +59,7 @@ class functions:
         accessId = "project/6227762025070592"
         bodyString = ""
         message = f"{accessId}:{accessTime}:{bodyString}"
-        privateKey = PrivateKey.fromPem("""
-        -----BEGIN EC PARAMETERS-----
-        BgUrgQQACg==
-        -----END EC PARAMETERS-----
-        -----BEGIN EC PRIVATE KEY-----
-        MHQCAQEEIIeTDvpQgt230UWY6dxB7JTLhQ91nI7/BL1CySP0ZKLWoAcGBSuBBAAK
-        oUQDQgAELpc8LwSIOOjzoL+iSO7ok8VB7mrsw5/B/XPsE2pxt2n3DgVFGitNHIu7
-        k9Ge1IzE/mY87uGWYRpd4P6YwfCvRw==
-        -----END EC PRIVATE KEY-----
-        """)
+        privateKey = PrivateKey.fromPem(pkey)
         signature = Ecdsa.sign(message, privateKey)
         accessSignature = signature.toBase64()
 
@@ -117,16 +91,7 @@ class functions:
         }
         bodyStringJSON = json.dumps(bodyString)
         message = f"{accessId}:{accessTime}:{bodyStringJSON}"
-        privateKey = PrivateKey.fromPem("""
-        -----BEGIN EC PARAMETERS-----
-        BgUrgQQACg==
-        -----END EC PARAMETERS-----
-        -----BEGIN EC PRIVATE KEY-----
-        MHQCAQEEIIeTDvpQgt230UWY6dxB7JTLhQ91nI7/BL1CySP0ZKLWoAcGBSuBBAAK
-        oUQDQgAELpc8LwSIOOjzoL+iSO7ok8VB7mrsw5/B/XPsE2pxt2n3DgVFGitNHIu7
-        k9Ge1IzE/mY87uGWYRpd4P6YwfCvRw==
-        -----END EC PRIVATE KEY-----
-        """)
+        privateKey = PrivateKey.fromPem(pkey)
         signature = Ecdsa.sign(message, privateKey)
         accessSignature = signature.toBase64()
         request = requests.post(
@@ -164,7 +129,7 @@ class functions:
         for i in range(randomNumber):
             person = functions.randomPerson()
             cpf = functions.gerarCpf()
-            randomAmount= random.randint(1, 1000)
+            randomAmount = random.uniform(1, 1000)
             invoice = functions.createInvoice(randomAmount, cpf, person['name'])
             try:
                 invoicesList.append(invoice['invoices'][0]['id'])
