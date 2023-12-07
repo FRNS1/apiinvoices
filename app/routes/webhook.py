@@ -4,12 +4,13 @@ import json
 
 webhook_bp = Blueprint('webhook', __name__)
 
+### Pega todas as transferências existentes, isso ajuda a não enviar transferências duplicadas
 listTransfers = []
 transfers = functions.getAllTransfers()
 for transfer in transfers['transfers']:
     listTransfers.append(transfer['externalId'])
-print(listTransfers)
 
+### Endpoint responsável pela realização de transferências chamado pela função serverless que é acionada pelo webhook
 @webhook_bp.route('/getinvoice', methods=['POST'])
 def hookReceiver():
     data = request.get_json()
@@ -21,9 +22,6 @@ def hookReceiver():
         if status == 'paid' and externalId not in listTransfers:
             transfer = functions.transfer(amount, externalId)
             listTransfers.append(transfer['transfers'][0]['externalId'])
-            print('------------------------------------')
-            print(transfer)
-            print('------------------------------------')
             return make_response(
                 jsonify(
                     mensagem='Ok',

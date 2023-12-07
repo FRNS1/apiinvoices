@@ -1,6 +1,7 @@
 import time
 import requests
 
+### Essa é uma segunda opção para chamar o endpoint da API que cria invoices a cada 3 horas
 def requestApi():
     url = "http://52.67.209.166:5000/invoices/createinvoice"
     response = requests.get(url)

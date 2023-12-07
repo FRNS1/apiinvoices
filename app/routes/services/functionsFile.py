@@ -8,6 +8,7 @@ import random
 
 class functions:
     
+    ### Requisição no sandbox do Stark Bank para listar todas transferências
     def getAllTransfers():
         accessTime = int(time.time())
         accessId = "project/6227762025070592"
@@ -27,6 +28,7 @@ class functions:
 
         return json.loads(request.text)
 
+    ### Requisição no sandbox do Stark Bank para criar uma invoice
     def createInvoice(amount, taxId, name):
         accessTime = int(time.time())
         accessId = "project/6227762025070592"
@@ -54,26 +56,7 @@ class functions:
 
         return json.loads(request.text)
 
-    def getInvoice(id):
-        accessTime = int(time.time())
-        accessId = "project/6227762025070592"
-        bodyString = ""
-        message = f"{accessId}:{accessTime}:{bodyString}"
-        privateKey = PrivateKey.fromPem(pkey)
-        signature = Ecdsa.sign(message, privateKey)
-        accessSignature = signature.toBase64()
-
-        request = requests.get(
-            url=f"https://sandbox.api.starkbank.com/v2/invoice/{id}",
-            headers={
-                "Access-Id" : accessId,
-                "Access-Time" : f"{accessTime}",
-                "Access-Signature": accessSignature
-            }
-        )
-
-        return json.loads(request.text)
-
+    ### Requisição no sandbox do Stark Bank para criar uma transferência
     def transfer(amount, externalId):
         accessTime = int(time.time())
         accessId = "project/6227762025070592"
@@ -106,11 +89,13 @@ class functions:
 
         return json.loads(request.text)
 
+    ### Requisição na api-ninjas para conseguir nomes aleatórios
     def randomPerson():
         api_url = 'https://api.api-ninjas.com/v1/randomuser'
         request = requests.get(api_url, headers={'X-Api-Key': 'UFrsF924j4T5U8/vbVTJdg==wVhAoX9cDFejrRvw'})
         return json.loads(request.text)
 
+    ### Função usada para gerar um CPF aleatório válido
     def gerarCpf():
         while True:
             cpf = [random.randint(0, 9) for i in range(9)]
@@ -122,7 +107,8 @@ class functions:
             cpf.append(digit)
         result = ''.join(map(str, cpf))
         return result
-
+    
+    ### Função que faz o envio das invoices 
     def sendInvoicesEvery3Hours():
         randomNumber = random.randint(8, 12)
         invoicesList = []
@@ -137,17 +123,4 @@ class functions:
                 return invoice
         return invoicesList
 
-    def checkInvoices(invoicesList):
-        faturasPagas = []
-        for invoice in invoicesList:
-            foundInvoice = functions.getInvoice(invoice)
-            print(foundInvoice)
-            if foundInvoice['invoice']['status'] == 'paid':
-                transferencia = functions.transfer(foundInvoice['invoice']['amount'])
-                print(transferencia)
-                faturasPagas.append(foundInvoice['invoice']['id'])
-                print('Valor transferido!')
-            else:
-                print('Fatura não paga!')
-        return faturasPagas
         
