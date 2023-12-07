@@ -6,6 +6,34 @@ import json
 import random
 
 class functions:
+    
+    def getAllTransfers():
+        accessTime = int(time.time())
+        accessId = "project/6227762025070592"
+        bodyString = ""
+        message = f"{accessId}:{accessTime}:{bodyString}"
+        privateKey = PrivateKey.fromPem("""
+        -----BEGIN EC PARAMETERS-----
+        BgUrgQQACg==
+        -----END EC PARAMETERS-----
+        -----BEGIN EC PRIVATE KEY-----
+        MHQCAQEEIIeTDvpQgt230UWY6dxB7JTLhQ91nI7/BL1CySP0ZKLWoAcGBSuBBAAK
+        oUQDQgAELpc8LwSIOOjzoL+iSO7ok8VB7mrsw5/B/XPsE2pxt2n3DgVFGitNHIu7
+        k9Ge1IzE/mY87uGWYRpd4P6YwfCvRw==
+        -----END EC PRIVATE KEY-----
+        """)
+        signature = Ecdsa.sign(message, privateKey)
+        accessSignature = signature.toBase64()
+        request = requests.get(
+        url=f"https://sandbox.api.starkbank.com/v2/transfer",
+        headers={
+            "Access-Id" : accessId,
+            "Access-Time" : f"{accessTime}",
+            "Access-Signature": accessSignature
+            }
+        )
+
+        return json.loads(request.text)
 
     def createInvoice(amount, taxId, name):
         accessTime = int(time.time())
