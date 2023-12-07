@@ -139,6 +139,6 @@ class functions:
             invoice = functions.createInvoice(randomAmount, cpf, person['name'])
             print(invoice)
             invoicesList.append(invoice['invoices'][0]['id'])
-        return invoicesList
+        return randomAmount
 
         
