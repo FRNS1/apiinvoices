@@ -100,7 +100,7 @@ class functions:
 
         return json.loads(request.text)
 
-    def transfer(amount):
+    def transfer(amount, externalId):
         accessTime = int(time.time())
         accessId = "project/6227762025070592"
         print('------------------------------------------------------------')
@@ -115,7 +115,8 @@ class functions:
                 "bankCode": "20018183",
                 "branchCode": "0001",
                 "accountNumber": "6341320293482496",
-                "accountType": "payment"
+                "accountType": "payment",
+                "externalId": externalId
                 }]
         }
         bodyStringJSON = json.dumps(bodyString)
