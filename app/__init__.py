@@ -15,9 +15,6 @@ def create_app():
         invoice = functions.sendInvoicesEvery3Hours()
         print("Job executed:", invoice)
         
-    now = datetime.now()
-    start = now + timedelta(minutes=1)
-        
     app.config['SCHEDULER_API_ENABLED'] = True
     app.config['JOBS'] = [
         {
@@ -25,7 +22,7 @@ def create_app():
             'func': createInvoiceJob,
             'trigger': 'interval',
             'hours': 1,
-            'start_date': start,
+            'misfire_grace_time': 60,
         }
     ]
     
