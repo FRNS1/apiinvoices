@@ -12,6 +12,7 @@ class functions:
         accessId = "project/6227762025070592"
         bodyString = {
             "invoices":[{
+                "amount": amount,
                 "taxId": f"{taxId}",
                 "name": f"{name}"
                 }]
@@ -133,8 +134,8 @@ class functions:
         for i in range(randomNumber):
             person = functions.randomPerson()
             cpf = functions.gerarCpf()
-            randomAmount= random.randrange(1000, 10000)
-            invoice = functions.createInvoice(1000.50, cpf, person['name'])
+            randomAmount= random.randrange(1, 10)
+            invoice = functions.createInvoice(randomAmount, cpf, person['name'])
             print(invoice)
             invoicesList.append(invoice['invoices'][0]['id'])
         return invoicesList
