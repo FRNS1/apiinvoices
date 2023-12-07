@@ -21,7 +21,7 @@ def create_app():
             'id': 'create_invoice_job',
             'func': sendInvoices,
             'trigger': 'interval',
-            'hours': 1,
+            'minutes': 5,
         }
     ]
     
