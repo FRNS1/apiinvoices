@@ -12,7 +12,6 @@ class functions:
         accessId = "project/6227762025070592"
         bodyString = {
             "invoices":[{
-                "amount": amount,
                 "taxId": f"{taxId}",
                 "name": f"{name}"
                 }]
