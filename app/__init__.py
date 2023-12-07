@@ -22,12 +22,13 @@ def create_app():
             'func': createInvoiceJob,
             'trigger': 'interval',
             'hours': 1,
-            'misfire_grace_time': 60,
         }
     ]
     
     scheduler.init_app(app)
     scheduler.start()
+    
+    createInvoiceJob()
     
     app.register_blueprint(invoices_bp, url_prefix='/invoices')
     app.register_blueprint(webhook_bp, url_prefix='/webhook')

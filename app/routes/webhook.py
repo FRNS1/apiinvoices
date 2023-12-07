@@ -4,6 +4,8 @@ import json
 
 webhook_bp = Blueprint('webhook', __name__)
 
+transferenciasRealizadas = []
+
 @webhook_bp.route('/getinvoice', methods=['POST'])
 def hookReceiver():
     data = request.get_json()
@@ -11,8 +13,10 @@ def hookReceiver():
     if data:
         amount = jsonData['event']['log']['invoice']['amount']
         status = jsonData['event']['log']['invoice']['status']
-        if status == 'paid':
+        invoiceId = jsonData['event']['log']['invoice']['id']
+        if status == 'paid' and invoiceId not in transferenciasRealizadas:
             transfer = functions.transfer(amount)
+            transferenciasRealizadas.append(id)
             print('------------------------------------')
             print(transfer)
             print('------------------------------------')
