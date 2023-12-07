@@ -134,7 +134,7 @@ class functions:
         for i in range(randomNumber):
             person = functions.randomPerson()
             cpf = functions.gerarCpf()
-            randomAmount= random.randint(1000, 10000)
+            randomAmount = round(random.uniform(1000, 10000), 2)
             invoice = functions.createInvoice(randomAmount, cpf, person['name'])
             print(invoice)
             invoicesList.append(invoice['invoices'][0]['id'])
