@@ -20,7 +20,7 @@ def hookReceiver():
         externalId = f"external-{jsonData['event']['log']['invoice']['id']}"
         if status == 'paid' and externalId not in listTransfers:
             transfer = functions.transfer(amount, externalId)
-            listTransfers.append(transfer['transfers']['externalId'])
+            listTransfers.append(transfer['transfers'][0]['externalId'])
             print('------------------------------------')
             print(transfer)
             print('------------------------------------')
