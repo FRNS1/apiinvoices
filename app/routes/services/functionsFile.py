@@ -1,7 +1,7 @@
 import time
 from ellipticcurve.privateKey import PrivateKey
 from ellipticcurve.ecdsa import Ecdsa
-from app.config import privateKey as pkey
+from config import privateKey as pkey
 import requests
 import json
 import random
