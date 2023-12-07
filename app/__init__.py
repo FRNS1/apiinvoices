@@ -4,6 +4,7 @@ from .routes.invoices import invoices_bp
 from .routes.webhook import webhook_bp
 from .routes.services.functionsFile import functions
 from flask_apscheduler import APScheduler
+from datetime import datetime, timedelta
 
 def create_app():
     app = Flask(__name__)
@@ -14,14 +15,16 @@ def create_app():
         invoice = functions.sendInvoicesEvery3Hours()
         print("Job executed:", invoice)
         
+    now = datetime.now()
+        
     app.config['SCHEDULER_API_ENABLED'] = True
     app.config['JOBS'] = [
         {
             'id': 'create_invoice_job',
             'func': createInvoiceJob,
             'trigger': 'interval',
-            'hours': 3,
-            'start_date': 'now',
+            'hours': 1,
+            'start_date': now,
         }
     ]
     
