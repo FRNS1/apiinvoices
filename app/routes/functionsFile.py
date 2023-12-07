@@ -134,23 +134,10 @@ class functions:
         for i in range(randomNumber):
             person = functions.randomPerson()
             cpf = functions.gerarCpf()
-            randomAmount= random.randint(1, 1000)
+            randomAmount= random.randint(1000, 10000)
             invoice = functions.createInvoice(randomAmount, cpf, person['name'])
             print(invoice)
             invoicesList.append(invoice['invoices'][0]['id'])
         return invoicesList
 
-    def checkInvoices(invoicesList):
-        faturasPagas = []
-        for invoice in invoicesList:
-            foundInvoice = functions.getInvoice(invoice)
-            print(foundInvoice)
-            if foundInvoice['invoice']['status'] == 'paid':
-                transferencia = functions.transfer(foundInvoice['invoice']['amount'])
-                print(transferencia)
-                faturasPagas.append(foundInvoice['invoice']['id'])
-                print('Valor transferido!')
-            else:
-                print('Fatura não paga!')
-        return faturasPagas
         
