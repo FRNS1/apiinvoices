@@ -103,10 +103,6 @@ class functions:
     def transfer(amount, externalId):
         accessTime = int(time.time())
         accessId = "project/6227762025070592"
-        print('------------------------------------------------------------')
-        print(amount)
-        print(type(amount))
-        print('------------------------------------------------------------')
         bodyString = {
             "transfers":[{
                 "amount": amount,
